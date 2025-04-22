@@ -4,6 +4,8 @@ A web app to gather the West Coast Swing I already learned :)
 
 _Note_: For now it's still a work in progress in a POC state.
 
+<img width="867" alt="Capture d’écran 2025-04-23 à 00 30 38" src="https://github.com/user-attachments/assets/5e4f1e33-21c0-4d92-8d10-1f3153cdec65" />
+
 ## Short term Roadmap
 + add deploy on Vercel
 + add subdomainon my website for a demo URL
