@@ -1,0 +1,25 @@
+.hands-connection,
+.hands-connection-edit
+  display: flex
+  flex-direction: column
+  width: fit-content
+  text-align: center
+
+  &.direction-reverse
+    flex-direction: column-reverse
+
+.hands
+  display: flex
+  flex-direction: row
+
+  &.hands-right-to-left
+    flex-direction: row-reverse
+
+  & > *
+    flex: 1
+
+.dancer-role
+  padding: .8rem
+  font-size: .9rem
+  font-weight: 700
+  border-radius: 1rem

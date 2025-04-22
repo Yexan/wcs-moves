@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
+import { AppNavComponent } from "./core/nav/nav.component"
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.sass'
+  standalone: true,
+  imports: [RouterOutlet, AppNavComponent],
+  template: `
+  <app-nav />
+  <router-outlet />
+  `,
 })
-export class AppComponent {
-  title = 'wcs-moves';
-}
+export class AppComponent { }
