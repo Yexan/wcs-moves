@@ -9,7 +9,7 @@ _Note_: For now it's still a work in progress in a POC state.
 ## Short term Roadmap
 
 - ~~add deploy on Vercel~~
-- ~~add subdomainon my website for a demo URL~~
+- ~~add subdomainon my website for a demo URL~~ [Demo Here](https://wcs.adrienmartinet.com/)
 - route and component to add a move
 - link the web app to firebase to use :
   - Firestorage
