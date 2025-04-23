@@ -37,6 +37,11 @@
             "styles": [
               "src/styles.sass"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/core/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
