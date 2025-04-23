@@ -27,33 +27,34 @@ import { movesData } from './moves.mock'
     </div>
   `,
   styles: `
-    .container
-      position: relative
+@use '../../core/styles/mixins' as mixin
+@use '../../core/styles/variables' as var
+
+.container
+  position: relative
+  +mixin.wrapper(mixin.pxInRem(960))
+  padding: 1rem
+
+.search-input
+  width: 100%
+  margin-bottom: 1rem
+  padding: 0.5rem
+  font-size: 1rem
+  border: 1px solid var.$gray-ccc
+  border-radius: 0.5rem
+
+.move-list
+  display: flex
+  flex-wrap: wrap
+  gap: 1rem
+  padding: 0
+  list-style: none
+
+  & > *
+    width: calc(50% - 0.5rem)
+
+    @media (max-width: mixin.pxInRem(490))
       width: 100%
-      max-width: 960px
-      margin: auto
-      padding: 1rem
-
-    .search-input
-      width: 100%
-      padding: 0.5rem
-      margin-bottom: 1rem
-      font-size: 1rem
-      border: 1px solid #ccc
-      border-radius: 0.5rem
-
-    .move-list
-      display: flex
-      flex-wrap: wrap
-      gap: 1rem
-      padding: 0
-      list-style: none
-
-      & > *
-        width: calc(50% - 0.5rem)
-
-        @media (max-width: 490px)
-          width: 100%
   `,
 })
 export class MoveListComponent {

@@ -1,0 +1,11 @@
+@use '../../../core/styles/mixins' as mixin
+@use '../../../core/styles/variables' as var
+
+.partners-connection,
+.partners-connection-edit
+  +mixin.flex-column-top
+  gap: 4rem
+  margin: auto
+  width: fit-content
+  color: var.$gray-dark
+  text-align: center

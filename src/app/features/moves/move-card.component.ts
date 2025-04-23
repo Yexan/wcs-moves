@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { RouterLink } from '@angular/router'
 
 import type { DanceMove } from './dance-move.type.js'
@@ -7,51 +6,58 @@ import type { DanceMove } from './dance-move.type.js'
 @Component({
   standalone: true,
   selector: 'app-move-card',
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   template: `
     <li class="move-card">
       <a [routerLink]="['/moves', move.id]">
         <h2>{{ move.name }}</h2>
         <p>{{ move.description }}</p>
         <ul class="tags">
-          <li *ngFor="let tag of move.tags" class="tag">{{ tag }}</li>
+          @for (tag of move.tags; track tag) {
+            <li class="tag">{{ tag }}</li>
+          }
         </ul>
       </a>
     </li>
   `,
   styles: `
-    .move-card
-      position: relative
-      margin-bottom: 1rem
-      padding: 1rem
-      background-color: #383a42
-      border-radius: .4rem
-      overflow: hidden
+@use '../../core/styles/mixins' as mixin
+@use '../../core/styles/variables' as var
 
-    h2
-      margin: -1rem -1rem 0
-      padding: 0.7rem 1rem
-      font-size: 1rem
-      color: #fff
-      background-color: #4a5059
+.move-card
+  position: relative
+  margin-bottom: 1rem
+  padding: 1rem
+  background-color: var.$gray-dark
+  border-radius: .4rem
+  overflow: hidden
 
-    .tags
-      display: flex
-      flex-wrap: wrap
-      gap: 0.5rem
-      margin-top: 0.5rem
-      padding: 0
-      list-style: none
+h2
+  margin: -1rem -1rem 0
+  padding: 0.7rem 1rem
+  font-size: 1rem
+  color: var.$white
+  background-color: var.$gray-medium
 
-    .tag
-      background-color: #4a5059
-      padding: 0.25rem 0.75rem
-      border-radius: 3rem
-      font-size: 0.8rem
+.tags
+  display: flex
+  flex-wrap: wrap
+  gap: 0.5rem
+  margin-top: 0.5rem
+  padding: 0
+  list-style: none
 
-    a
-      color: #c4c6ce
-      text-decoration: none
+.tag
+  background-color: var.$gray-medium
+  padding: 0.25rem 0.75rem
+  border-radius: 3rem
+  font-size: 0.8rem
+
+a
+  display: block
+  +mixin.w-h(100%)
+  color: var.$gray-light
+  text-decoration: none
   `,
 })
 export class MoveCardComponent {

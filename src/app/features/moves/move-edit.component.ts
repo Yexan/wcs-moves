@@ -86,72 +86,81 @@ import { StepFormGroup } from '../steps/step.type'
           </div>
 
           <label class="checkbox">
-            <input type="checkbox" formControlName="isFollowerInitiative" />
             <span>Follower Initiative</span>
+            <input type="checkbox" formControlName="isFollowerInitiative" />
           </label>
 
           <div class="form-actions">
-            <button type="submit" [disabled]="form!.invalid">💾 Save</button>
             <button type="button" (click)="goBack()">❌ Cancel</button>
+            <button type="submit" [disabled]="form!.invalid">💾 Save</button>
           </div>
         </form>
       }
     </section>
   `,
   styles: `
-  @use './move-detail'
+@use '../../core/styles/mixins' as mixin
+@use '../../core/styles/variables' as var
+@use './move-detail'
 
-  label
+label
+  display: block
+  margin: 1rem 0 3rem
+
+  span
     display: block
-    margin: 1rem 0 3rem
-
-    span
-      display: block
-      margin: 1rem 0
-      font-size: 1.2rem
-      cursor: pointer
-
-  input, textarea
-    display: block
-    width: 100%
-    padding: 0.7rem
-    background-color: #c4c6ce
-    border: none
-    border-radius: .6rem
-    font-size: 1rem
-
-  .checkbox
-    flex-direction: row
-    align-items: center
-    gap: 0.5rem
-
-  .form-actions
-    display: flex
-    gap: 1rem
-    justify-content: flex-end
-
-    button
-      padding: 0.5rem 1rem
-      border: none
-      border-radius: 4px
-      cursor: pointer
-      font-weight: bold
-      background-color: #007acc
-      color: white
-      transition: background 0.2s ease-in-out
-
-      &:hover
-        background-color: #005fa3
-
-      &:disabled
-        background-color: #aaa
-        cursor: not-allowed
-
-  .add-step
-    max-width: fit-content
-    max-height: fit-content
-    align-self: center
+    margin: 1rem 0
+    font-size: 1.2rem
     cursor: pointer
+
+input, textarea
+  display: block
+  width: 100%
+  padding: 0.7rem
+  font-size: 1rem
+  background-color: var.$gray-light
+  border: none
+  border-radius: .6rem
+
+.checkbox
+  +mixin.flex-column-top-left
+  gap: 0.5rem
+
+  input
+    width: fit-content
+
+.form-actions
+  display: flex
+  gap: 1rem
+  justify-content: flex-end
+
+  button
+    padding: 0.5rem 1rem
+    border: none
+    border-radius: 4px
+    color: var.$white
+    font-weight: bold
+    background-color: var.$gray-medium
+    +mixin.tr(background-color)
+    cursor: pointer
+
+    &[type='submit']:hover
+      background-color: var.$highlight
+
+    &:hover
+      background-color: var.$gray-darker
+
+    &:disabled,
+    &:disabled:hover
+      background-color: var.$gray-light
+      cursor: not-allowed
+
+
+.add-step
+  max-width: fit-content
+  max-height: fit-content
+  align-self: center
+  cursor: pointer
   `
 })
 export class MoveEditComponent implements OnInit {

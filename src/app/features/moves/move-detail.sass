@@ -1,3 +1,6 @@
+@use '../../core/styles/mixins' as mixin
+@use '../../core/styles/variables' as var
+
 :host
   position: relative
   display: block
@@ -6,12 +9,10 @@
 .move-details,
 .move-details-edit
   position: relative
-  width: 100%
-  max-width: 960px
-  margin: auto
+  +mixin.wrapper(mixin.pxInRem(960))
   padding: 1rem
-  color: #c4c6ce
-  background-color: #383a42
+  color: var.$gray-light
+  background-color: var.$gray-dark
   border-radius: .4rem
   overflow: hidden
 
@@ -19,22 +20,21 @@ h1
   margin: -1rem -1rem 0
   padding: 1rem 5rem 1rem 1rem
   font-size: 1.4rem
-  color: #fff
-  background-color: #4a5059
+  color: var.$white
+  background-color: var.$gray-medium
 
 .edit-link
   position: absolute
-  top: .6rem
-  right: .8rem
+  +mixin.top-right(.6rem, .8rem)
   padding: .3rem .6rem
   font-size: 1.4rem
   text-decoration: none
-  background: linear-gradient(167deg, #252726, #383a42)
+  background: linear-gradient(167deg, var.$gray-darker, var.$gray-dark)
   border-radius: .4rem
 
   &:hover,
   &:focus
-    background: linear-gradient(167deg, #383a42, #252726)
+    background: linear-gradient(167deg, var.$gray-dark, var.$gray-darker)
 
 .tags
   display: flex
@@ -45,10 +45,10 @@ h1
   list-style: none
 
 .tag
-  background-color: #4a5059
+  background-color: var.$gray-medium
   padding: 0.25rem 0.75rem
-  border-radius: 3rem
   font-size: 0.8rem
+  border-radius: 3rem
 
 hr
   margin: 3rem 0
@@ -60,8 +60,7 @@ hr
   gap: 1rem
 
 .connection
-  display: flex
-  flex-direction: column
+  +mixin.flex-column-top
   flex: 1
   text-align: center
 
@@ -77,16 +76,14 @@ hr
   display: grid
   grid-template-columns: min(5vw, 5rem) 1fr
   gap: 2rem
-  background-color: rgba(#4a5059, .3)
+  background-color: rgba(var.$gray-medium, .3)
 
   &:nth-child(even)
-    background-color: #383a42
+    background-color: var.$gray-dark
 
     .step-number
-      background-color: rgba(#E8F5E9, .1)
+      background-color: rgba(var.$gray-lightest, .1)
 
 .step-number
-  display: flex
-  align-items: center
-  justify-content: center
-  background-color: rgba(#E0F2F1, .1)
+  +mixin.flex-column-center
+  background-color: rgba(var.$gray-lighter, .1)

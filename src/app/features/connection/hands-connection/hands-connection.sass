@@ -1,7 +1,8 @@
+@use '../../../core/styles/mixins' as mixin
+
 .hands-connection,
 .hands-connection-edit
-  display: flex
-  flex-direction: column
+  +mixin.flex-column-top
   width: fit-content
   text-align: center
 
@@ -9,8 +10,7 @@
     flex-direction: column-reverse
 
 .hands
-  display: flex
-  flex-direction: row
+  +mixin.flex-row-top-left
 
   &.hands-right-to-left
     flex-direction: row-reverse
@@ -19,7 +19,7 @@
     flex: 1
 
 .dancer-role
-  padding: .8rem
+  padding: .8rem 3.5rem
   font-size: .9rem
   font-weight: 700
   border-radius: 1rem

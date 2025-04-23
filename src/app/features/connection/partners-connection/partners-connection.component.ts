@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { PartnersConnection } from './partners-connection.type'
 import { HandsConnectionComponent } from "../hands-connection/hands-connection.component"
+import { PartnersConnection } from './partners-connection.type'
 
 
 @Component({
@@ -17,21 +17,7 @@ import { HandsConnectionComponent } from "../hands-connection/hands-connection.c
     </div>
   `,
   styles: `
-.partners-connection
-  display: flex
-  flex-direction: column
-  gap: 4rem
-  margin: auto
-  width: fit-content
-  color: #383a42
-  text-align: center
-
-  &.direction-reverse
-    flex-direction: column-reverse
-
-  .hands
-    display: flex
-    flex-direction: row
+    @use './partners-connection'
   `
 })
 export class PartnersConnectionComponent {

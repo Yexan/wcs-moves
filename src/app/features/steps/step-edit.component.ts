@@ -46,56 +46,58 @@ import { MoveFormBuilderService } from '../moves/move-form-builder.service'
     }
   `,
   styles: `
-    .step-edit
-      display: grid
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr))
-      grid-gap: 1rem
+@use '../../core/styles/mixins' as mixin
+@use '../../core/styles/variables' as var
 
-      & + .step-edit
-        margin: 2rem 0
+.step-edit
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr))
+  grid-gap: 1rem
 
-    .foot-positions
-      display: grid
-      grid-auto-rows: 1fr
-      gap: .5rem
+  & + .step-edit
+    margin: 2rem 0
 
-    .foot-position input
-      width: 100%
-      padding: .5rem
-      border-radius: .3rem
-      border: none
+.foot-positions
+  display: grid
+  grid-auto-rows: 1fr
+  gap: .5rem
 
-    .partners-connection
-      padding: 1rem 0
+.foot-position input
+  width: 100%
+  padding: .5rem
+  border-radius: .3rem
+  border: none
 
-    .timing input
-      width: calc(100% - 3rem)
-      padding: 0.5rem 1rem
-      border-radius: 0.5rem
+.partners-connection
+  padding: 1rem 0
 
-    textarea
-      display: block
-      width: 100%
-      min-height: 6rem
-      padding: 0.7rem
-      background-color: #c4c6ce
-      border: none
-      border-radius: .6rem
-      font-size: 1rem
+.timing input
+  width: calc(100% - 3rem)
+  padding: 0.5rem 1rem
+  border-radius: 0.5rem
 
-    .remove-step
-      width: calc(100% - 3rem)
-      padding: 0.5rem 1rem
-      color: white
-      background-color: #ff4d4d
-      border: none
-      border-radius: 0.5rem
-      cursor: pointer
-      transition: background-color 0.3s ease-in-out
+textarea
+  display: block
+  width: 100%
+  min-height: 6rem
+  padding: 0.7rem
+  font-size: 1rem
+  background-color: var.$gray-light
+  border: none
+  border-radius: .6rem
 
-      &:hover
-        background-color: #ff1a1a
+.remove-step
+  width: calc(100% - 3rem)
+  padding: 0.5rem 1rem
+  color: var.$white
+  background-color: var.$red
+  border: none
+  border-radius: 0.5rem
+  cursor: pointer
+  +mixin.tr(background-color)
 
+  &:hover
+    background-color: var.$red-dark
   `
 })
 export class StepEditComponent {

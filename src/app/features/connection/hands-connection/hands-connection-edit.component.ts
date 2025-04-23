@@ -1,17 +1,15 @@
 import { Component, Input, inject } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
 
 import { ConnectionPointEditComponent } from '../connection-point/connection-point-edit.component'
-import { HandsConnectionFormGroup } from './hands-connection.type'
-import { ConnectionPoint } from '../connection-point/connection-point.type'
 import { MoveFormBuilderService } from '../../moves/move-form-builder.service'
+import { HandsConnectionFormGroup } from './hands-connection.type'
 
 
 @Component({
   selector: 'app-hands-connection-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ConnectionPointEditComponent],
+  imports: [ReactiveFormsModule, ConnectionPointEditComponent],
   template: `
     <div class="hands-connection" [class.direction-reverse]="textDirection === 'top'">
       <div class="dancer-role" [style.background]="color">{{ dancerRole }}</div>
@@ -21,21 +19,22 @@ import { MoveFormBuilderService } from '../../moves/move-form-builder.service'
         [class.hands-right-to-left]="handsDirection !== 'left-to-right'">
 
         @let left = getConnectionPoint(handsConnection, 'left');
-        <app-connection-point-edit
-          *ngIf="left"
-          side="Left"
-          [connectionPoint]="left"
-          [color]="color"
-          [textDirection]="textDirection" />
+        @if (left) {
+          <app-connection-point-edit
+            side="Left"
+            [connectionPoint]="left"
+            [color]="color"
+            [textDirection]="textDirection" />
+        }
 
         @let right = getConnectionPoint(handsConnection, 'right');
-        <app-connection-point-edit
-          *ngIf="right"
-          side="Right"
-          [connectionPoint]="right"
-          [color]="color"
-          [textDirection]="textDirection" />
-
+        @if (right) {
+          <app-connection-point-edit
+            side="Right"
+            [connectionPoint]="right"
+            [color]="color"
+            [textDirection]="textDirection" />
+        }
       </div>
     </div>
   `,

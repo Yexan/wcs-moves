@@ -18,29 +18,38 @@ import { RouterModule } from "@angular/router"
     </nav>
   `,
   styles: `
-    .nav
-      display: flex
-      gap: 1rem
-      padding: 1rem
-      background: #383a42
+@use '../styles/mixins' as mixin
+@use '../styles/variables' as var
 
-    ul
-      display: flex
-      width: 100%
-      max-width: 960px
-      margin: auto
-      padding: 0
-      gap: 1.5rem
-      list-style: none
+.nav
+  position: fixed
+  +mixin.top-left
+  width: 100%
+  background: var.$gray-dark
+  z-index: 100
 
-    a
-      text-decoration: none
-      color: #fff
+ul
+  +mixin.flex-row-left
+  flex-wrap: wrap
+  +mixin.wrapper(mixin.pxInRem(960))
+  padding: 0
+  list-style: none
 
-    .active
-      color: #ffcc00
-      font-weight: bold
-      border-bottom: 2px solid #ffcc00
+li
+  +mixin.flex-column-center
+
+a
+  padding: 1rem 1.5rem
+  color: var.$white
+  text-decoration: none
+  border-bottom: 2px solid transparent
+  +mixin.tr
+
+  &.active,
+  &:hover,
+  &:focus
+    color: var.$highlight
+    border-bottom: 2px solid var.$highlight
   `
 })
 export class AppNavComponent { }
