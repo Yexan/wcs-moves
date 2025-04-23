@@ -1,4 +1,4 @@
-import { DanceMove } from './dance-move.type'
+import { DanceMove } from '@features/moves/dance-move.type'
 
 export const movesData: DanceMove[] = [
   {

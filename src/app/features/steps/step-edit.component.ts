@@ -1,15 +1,14 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { PartnersConnectionEditComponent } from '../connection/partners-connection/partners-connection-edit.component'
-import { StepFormGroup } from './step.type'
-import { MoveFormBuilderService } from '../moves/move-form-builder.service'
+import { PartnersConnectionEditComponent } from '@features/connection/partners-connection/partners-connection-edit.component'
+import { MoveFormBuilderService } from '@features/moves/move-form-builder.service'
+import { StepFormGroup } from '@features/steps/step.type'
 
 @Component({
   selector: 'app-step-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PartnersConnectionEditComponent],
+  imports: [ReactiveFormsModule, PartnersConnectionEditComponent],
   template: `
     @if (step) {
       <div class="step-edit" [formGroup]="step">
@@ -46,8 +45,8 @@ import { MoveFormBuilderService } from '../moves/move-form-builder.service'
     }
   `,
   styles: `
-@use '../../core/styles/mixins' as mixin
-@use '../../core/styles/variables' as var
+@use 'mixins' as mixin
+@use 'variables' as var
 
 .step-edit
   display: grid

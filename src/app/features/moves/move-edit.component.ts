@@ -1,22 +1,22 @@
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { AsyncPipe } from '@angular/common'
 import { FormArray, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { Observable, map, of, shareReplay, startWith, switchMap, tap } from 'rxjs'
+import { Observable, map, of, shareReplay, startWith, switchMap } from 'rxjs'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
-import { MoveService } from './move.service'
-import { MoveFormBuilderService } from './move-form-builder.service'
-import { PartnersConnectionEditComponent } from '../connection/partners-connection/partners-connection-edit.component'
-import { StepEditComponent } from '../steps/step-edit.component'
-import { DanceMove, DanceMoveFormGroup } from './dance-move.type'
-import { StepFormGroup } from '../steps/step.type'
+import { PartnersConnectionEditComponent } from '@features/connection/partners-connection/partners-connection-edit.component'
+import { StepEditComponent } from '@features/steps/step-edit.component'
+import { MoveService } from '@features/moves/move.service'
+import { MoveFormBuilderService } from '@features/moves/move-form-builder.service'
+import { DanceMove, DanceMoveFormGroup } from '@features/moves/dance-move.type'
+import { StepFormGroup } from '@features/steps/step.type'
 
 
 @Component({
   selector: 'app-move-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PartnersConnectionEditComponent, StepEditComponent],
+  imports: [AsyncPipe, ReactiveFormsModule, PartnersConnectionEditComponent, StepEditComponent],
   template: `
     <section class="move-details-edit">
       <h1>Edit Dance Move</h1>
@@ -25,7 +25,7 @@ import { StepFormGroup } from '../steps/step.type'
       @let form = form$ | async;
 
       @if (!form || !move) {
-        <p (click)="logState(move, form)">🚫 Move not found.</p>
+        <p>🚫 Move not found.</p>
       } @else {
         <form [formGroup]="form!" (ngSubmit)="onSubmit(form)">
           <label>
@@ -99,8 +99,8 @@ import { StepFormGroup } from '../steps/step.type'
     </section>
   `,
   styles: `
-@use '../../core/styles/mixins' as mixin
-@use '../../core/styles/variables' as var
+@use 'mixins' as mixin
+@use 'variables' as var
 @use './move-detail'
 
 label
@@ -251,11 +251,5 @@ export class MoveEditComponent implements OnInit {
 
   trackByTiming(index: number, timing: number): number {
     return timing
-  }
-
-  logState(move: DanceMove | null | undefined, form: DanceMoveFormGroup | null | undefined) {
-    console.log('Id:', this.id)
-    console.log('Move:', move)
-    console.log('Form:', form)
   }
 }

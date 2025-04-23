@@ -1,8 +1,8 @@
 import { Component, Input, inject } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { ConnectionPointEditComponent } from '../connection-point/connection-point-edit.component'
-import { MoveFormBuilderService } from '../../moves/move-form-builder.service'
+import { ConnectionPointEditComponent } from '@features/connection/connection-point/connection-point-edit.component'
+import { MoveFormBuilderService } from '@features/moves/move-form-builder.service'
 import { HandsConnectionFormGroup } from './hands-connection.type'
 
 

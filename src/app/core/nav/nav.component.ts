@@ -18,8 +18,8 @@ import { RouterModule } from "@angular/router"
     </nav>
   `,
   styles: `
-@use '../styles/mixins' as mixin
-@use '../styles/variables' as var
+@use 'mixins' as mixin
+@use 'variables' as var
 
 .nav
   position: fixed

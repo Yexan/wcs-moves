@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
 
+import { ConnectionPointComponent } from '@features/connection/connection-point/connection-point.component'
 import { HandsConnection } from './hands-connection.type'
-import { ConnectionPointComponent } from "../connection-point/connection-point.component";
 
 
 @Component({
   selector: 'app-hands-connection',
   standalone: true,
-  imports: [CommonModule, ConnectionPointComponent],
+  imports: [ConnectionPointComponent],
   template: `
     <div class="hands-connection" [class.direction-reverse]="textDirection === 'top'">
       <div class="dancer-role" [style.background]="color">{{ dancerRole }}</div>

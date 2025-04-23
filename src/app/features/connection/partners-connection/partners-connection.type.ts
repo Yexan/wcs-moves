@@ -1,5 +1,5 @@
-import { HandsConnection, HandsConnectionFormGroup } from "../hands-connection/hands-connection.type"
-import { TypedFormGroupByControl } from "../../../shared/typed-form-control-and-group.type"
+import { HandsConnection, HandsConnectionFormGroup } from '@features/connection/hands-connection/hands-connection.type'
+import { TypedFormGroupByControl } from '@shared/typed-form-control-and-group.type'
 
 export type PartnersConnection = {
   leader: HandsConnection

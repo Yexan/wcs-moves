@@ -1,7 +1,7 @@
-import { FormControl, FormGroup } from "@angular/forms"
+import { FormControl, FormGroup } from '@angular/forms'
 
-import { PartnersConnection, PartnersConnectionFormGroup } from "../connection/partners-connection/partners-connection.type"
-import { PartnersFootPositions, PartnersFootPositionsFormGroup } from "./partners-foot-positions.type"
+import { PartnersConnection, PartnersConnectionFormGroup } from '@features/connection/partners-connection/partners-connection.type'
+import { PartnersFootPositions, PartnersFootPositionsFormGroup } from '@features/steps/partners-foot-positions.type'
 
 export type Step = {
   timing: number

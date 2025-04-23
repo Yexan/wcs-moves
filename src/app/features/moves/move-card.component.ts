@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
-import type { DanceMove } from './dance-move.type.js'
+import type { DanceMove } from '@features/moves/dance-move.type'
 
 @Component({
   standalone: true,
@@ -21,8 +21,8 @@ import type { DanceMove } from './dance-move.type.js'
     </li>
   `,
   styles: `
-@use '../../core/styles/mixins' as mixin
-@use '../../core/styles/variables' as var
+@use 'mixins' as mixin
+@use 'variables' as var
 
 .move-card
   position: relative

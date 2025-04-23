@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { HandsConnectionComponent } from "../hands-connection/hands-connection.component"
+import { HandsConnectionComponent } from '@features/connection/hands-connection/hands-connection.component'
 import { PartnersConnection } from './partners-connection.type'
 
 

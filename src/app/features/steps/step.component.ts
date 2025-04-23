@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
-import { PartnersConnectionComponent } from "../connection/partners-connection/partners-connection.component"
-import { Step } from './step.type'
+import { PartnersConnectionComponent } from "@features/connection/partners-connection/partners-connection.component"
+import { Step } from '@features/steps/step.type'
 
 @Component({
   selector: 'app-step',
@@ -36,7 +36,6 @@ import { Step } from './step.type'
 
     .partners-connection
       padding: 1rem 0
-
   `
 })
 export class StepComponent {

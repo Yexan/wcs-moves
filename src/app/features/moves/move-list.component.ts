@@ -1,14 +1,13 @@
 import { Component, computed, signal } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
-import { MoveCardComponent } from './move-card.component'
-import { movesData } from './moves.mock'
+import { MoveCardComponent } from '@features/moves/move-card.component'
+import { movesData } from '@features/moves/moves.mock'
 
 @Component({
   standalone: true,
   selector: 'app-move-list',
-  imports: [CommonModule, FormsModule, MoveCardComponent],
+  imports: [FormsModule, MoveCardComponent],
   template: `
     <div class="container">
       <input
@@ -19,16 +18,15 @@ import { movesData } from './moves.mock'
       />
 
       <ul class="move-list">
-        <app-move-card
-          *ngFor="let move of filteredMoves()"
-          [move]="move"
-        />
+        @for (move of filteredMoves(); track move.id) {
+          <app-move-card [move]="move" />
+        }
       </ul>
     </div>
   `,
   styles: `
-@use '../../core/styles/mixins' as mixin
-@use '../../core/styles/variables' as var
+@use 'mixins' as mixin
+@use 'variables' as var
 
 .container
   position: relative

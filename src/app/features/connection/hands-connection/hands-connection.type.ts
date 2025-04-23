@@ -1,5 +1,5 @@
-import { ConnectionPoint } from "../connection-point/connection-point.type"
-import { TypedFormGroup } from "../../../shared/typed-form-control-and-group.type"
+import { ConnectionPoint } from '@features/connection/connection-point/connection-point.type'
+import { TypedFormGroup } from '@shared/typed-form-control-and-group.type'
 
 
 export type HandsConnection = {

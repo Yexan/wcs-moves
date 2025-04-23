@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 
-import { DanceMove, DanceMoveFormGroup } from './dance-move.type'
-import { Step, StepFormGroup } from '../steps/step.type'
-import { ConnectionPoint } from '../connection/connection-point/connection-point.type'
-import { HandsConnectionFormGroup } from '../connection/hands-connection/hands-connection.type'
-import { PartnersConnection, PartnersConnectionFormGroup } from '../connection/partners-connection/partners-connection.type'
-import { PartnersFootPositions, PartnersFootPositionsFormGroup } from '../steps/partners-foot-positions.type'
+import { DanceMove, DanceMoveFormGroup } from '@features/moves/dance-move.type'
+import { Step, StepFormGroup } from '@features/steps/step.type'
+import { ConnectionPoint } from '@features/connection/connection-point/connection-point.type'
+import { HandsConnectionFormGroup } from '@features/connection/hands-connection/hands-connection.type'
+import { PartnersConnection, PartnersConnectionFormGroup } from '@features/connection/partners-connection/partners-connection.type'
+import { PartnersFootPositions, PartnersFootPositionsFormGroup } from '@features/steps/partners-foot-positions.type'
 
 @Injectable({ providedIn: 'root' })
 export class MoveFormBuilderService {
@@ -119,6 +119,8 @@ export class MoveFormBuilderService {
       footPositions: this.createEmptyFootPositions()
     }
   }
+
+  // Getters with enforced types
 
   getConnectionGroup(form: DanceMoveFormGroup, name: 'startingConnection' | 'endingConnection') {
     return form.get(name) as PartnersConnectionFormGroup

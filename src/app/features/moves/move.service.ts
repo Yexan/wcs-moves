@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 
-import { movesData } from './moves.mock'
-import { DanceMove } from './dance-move.type'
+import { DanceMove } from '@features/moves/dance-move.type'
+import { movesData } from '@features/moves/moves.mock'
 
 @Injectable({ providedIn: 'root' })
 export class MoveService {

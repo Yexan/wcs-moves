@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router'
-import { MoveListComponent } from './features/moves/move-list.component'
-import { MoveDetailComponent } from './features/moves/move-details.component'
-import { MoveEditComponent } from './features/moves/move-edit.component'
+
+import { MoveListComponent } from '@features/moves/move-list.component'
+import { MoveDetailComponent } from '@features/moves/move-details.component'
+import { MoveEditComponent } from '@features/moves/move-edit.component'
 
 export const routes: Routes = [
   { path: '', redirectTo: 'moves', pathMatch: 'full' },
