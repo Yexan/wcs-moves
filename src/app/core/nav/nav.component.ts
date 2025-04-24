@@ -9,7 +9,10 @@ import { RouterModule } from "@angular/router"
     <nav class="nav">
       <ul>
         <li>
-          <a routerLink="/moves" routerLinkActive="active">Moves</a>
+          <a routerLink="/moves" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Moves</a>
+        </li>
+        <li>
+          <a routerLink="/moves/new" routerLinkActive="active">Add a move</a>
         </li>
         <li>
           <a routerLink="/login" routerLinkActive="active">Login</a>

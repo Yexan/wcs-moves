@@ -94,7 +94,7 @@ export class MoveFormBuilderService {
       thumbnailUrl: '',
       startingConnection: this.createEmptyPartnersConnection(),
       endingConnection: this.createEmptyPartnersConnection(),
-      stepDetails: []
+      stepDetails: [this.createEmptyStep(1)]
     }
   }
 

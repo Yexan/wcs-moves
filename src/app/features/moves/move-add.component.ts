@@ -14,20 +14,15 @@ import { StepFormGroup } from '@features/steps/step.type'
 
 
 @Component({
-  selector: 'app-move-edit',
+  selector: 'app-move-add',
   standalone: true,
   imports: [AsyncPipe, ReactiveFormsModule, PartnersConnectionEditComponent, StepEditComponent],
   template: `
     <section class="move-details-edit">
-      <h1>Edit Dance Move</h1>
+      <h1>Add a new Dance Move</h1>
 
-      @let move = move$ | async;
-      @let form = form$ | async;
-
-      @if (!form || !move) {
-        <p>🚫 Move not found.</p>
-      } @else {
-        <form [formGroup]="form!" (ngSubmit)="onSubmit(form)">
+      @if (form) {
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
           <label>
             <span>Name</span>
             <input formControlName="name" />
@@ -92,7 +87,7 @@ import { StepFormGroup } from '@features/steps/step.type'
 
           <div class="form-actions">
             <button type="button" (click)="goBack()">❌ Cancel</button>
-            <button type="submit" [disabled]="form!.invalid">💾 Save</button>
+            <button type="submit" [disabled]="form.invalid">💾 Save</button>
           </div>
         </form>
       }
@@ -163,37 +158,23 @@ input, textarea
   cursor: pointer
   `
 })
-export class MoveEditComponent implements OnInit {
+export class MoveAddComponent implements OnInit {
   private router = inject(Router)
   private destroyRef = inject(DestroyRef)
   private moveService = inject(MoveService)
   private moveFormBuilder = inject(MoveFormBuilderService)
 
-  @Input() id!: string
 
-  protected move$: Observable<DanceMove | null> = of(null)
-  protected form$: Observable<DanceMoveFormGroup | null> = of(null)
+  protected form: DanceMoveFormGroup = this.moveFormBuilder.createEmptyDanceMoveForm()
   protected timingSteps$: Observable<number[]> = of([])
 
   protected getConnectionGroup = this.moveFormBuilder.getConnectionGroup
 
   ngOnInit(): void {
-    this.move$ = this.moveService.getMoveById(this.id)
-    this.form$ = this.move$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-      map(move => move ? this.moveFormBuilder.createDanceMoveForm(move) : null),
-      shareReplay(1)
-    )
-
-    this.timingSteps$ = this.form$.pipe(
-      switchMap(form => {
-        if (!form) return of([])
-        return form.controls.steps.valueChanges.pipe(
-          startWith(form.controls.steps.value),
-          map((steps) => this.getTimingStepsArray(steps ?? 0))
-        )
-      }),
-      takeUntilDestroyed(this.destroyRef),
+    this.timingSteps$ = this.form.controls.steps.valueChanges.pipe(
+      startWith(this.form.controls.steps.value),
+      map((steps) => this.getTimingStepsArray(steps ?? 0)),
+      takeUntilDestroyed(this.destroyRef)
     )
   }
 
