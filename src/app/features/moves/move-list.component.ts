@@ -1,24 +1,18 @@
-import { Component, computed, signal } from '@angular/core'
+import { Component, inject } from '@angular/core'
+import { AsyncPipe } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
 import { MoveCardComponent } from '@features/moves/move-card.component'
-import { movesData } from '@features/moves/moves.mock'
+import { MoveService } from './move.service'
 
 @Component({
   standalone: true,
   selector: 'app-move-list',
-  imports: [FormsModule, MoveCardComponent],
+  imports: [FormsModule, MoveCardComponent, AsyncPipe],
   template: `
     <div class="container">
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Search moves..."
-        [(ngModel)]="search"
-      />
-
       <ul class="move-list">
-        @for (move of filteredMoves(); track move.id) {
+        @for (move of (moves$ | async); track move.id) {
           <app-move-card [move]="move" />
         }
       </ul>
@@ -56,25 +50,5 @@ import { movesData } from '@features/moves/moves.mock'
   `,
 })
 export class MoveListComponent {
-  private readonly _search = signal('')
-
-  get search(): string {
-    return this._search()
-  }
-
-  set search(value: string) {
-    this._search.set(value)
-  }
-
-  private readonly allMoves = signal(movesData)
-
-  protected filteredMoves = computed(() =>
-    this.allMoves().filter((move) => {
-      const query = this.search.toLowerCase()
-      return (
-        move.name.toLowerCase().includes(query) ||
-        move.tags.some((tag) => tag.toLowerCase().includes(query))
-      )
-    })
-  )
+  moves$ = inject(MoveService).moves$
 }

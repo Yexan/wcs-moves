@@ -221,6 +221,7 @@ export class MoveAddComponent implements OnInit {
         updatedAt: new Date().toISOString(),
       }
 
+      this.moveService.addMove(updatedMove)
       console.log('✅ Move updated:', updatedMove)
       this.goBack()
     }

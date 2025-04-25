@@ -239,7 +239,7 @@ export class MoveEditComponent implements OnInit {
         ...form.getRawValue(),
         updatedAt: new Date().toISOString(),
       }
-
+      this.moveService.updateMove(this.id, updatedMove)
       console.log('✅ Move updated:', updatedMove)
       this.goBack()
     }
