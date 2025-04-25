@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, inject } from '@angular/core'
 import { AsyncPipe } from '@angular/common'
-import { RouterLink } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { Observable, of } from 'rxjs'
 
 import { PartnersConnectionComponent } from '@features/connection/partners-connection/partners-connection.component'
@@ -19,6 +19,7 @@ import { Step } from '@features/steps/step.type'
       @if (move) {
         <h1>{{ move.name }}</h1>
         <a routerLink="/moves/{{ move.id }}/edit" class="edit-link">🖋</a>
+        <button (click)="onAskDelete()" class="delete-btn">🗑</button>
 
         <ul class="tags">
           @for (tag of move.tags; track tag) {
@@ -62,6 +63,18 @@ import { Step } from '@features/steps/step.type'
             </div>
           }
         </div>
+
+        @if (showDeleteConfirm) {
+          <div class="modal-backdrop" (click)="onCancelDelete()">
+            <div class="modal" (click)="stopPropagation($event)">
+              <p>Are you sure you want to delete this move?</p>
+              <div class="actions">
+                <button (click)="onCancelDelete()">Cancel</button>
+                <button class="danger" (click)="onConfirmDelete()">Yes, delete</button>
+              </div>
+            </div>
+          </div>
+        }
       } @else {
         <p>Move not found.</p>
       }
@@ -73,10 +86,12 @@ import { Step } from '@features/steps/step.type'
 })
 export class MoveDetailComponent implements OnInit {
   private moveService = inject(MoveService)
+  private router = inject(Router)
 
   @Input() id!: string
 
   protected move$: Observable<DanceMove | null> = of(null)
+  protected showDeleteConfirm = false
 
   ngOnInit() {
     this.move$ = this.moveService.getMoveById(this.id)
@@ -92,5 +107,23 @@ export class MoveDetailComponent implements OnInit {
 
   getCorrespondingStepDetail(stepNumber: number, stepDetails: Step[] = []) {
     return stepDetails.find((step) => step.timing === stepNumber)
+  }
+
+  onAskDelete() {
+    this.showDeleteConfirm = true
+  }
+
+  onCancelDelete() {
+    this.showDeleteConfirm = false
+  }
+
+  onConfirmDelete() {
+    this.moveService.deleteMove(this.id).then(() => {
+      this.router.navigate(['/moves'])
+    })
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation()
   }
 }

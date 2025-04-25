@@ -50,5 +50,5 @@ import { MoveService } from './move.service'
   `,
 })
 export class MoveListComponent {
-  moves$ = inject(MoveService).moves$
+  protected moves$ = inject(MoveService).moves$
 }
