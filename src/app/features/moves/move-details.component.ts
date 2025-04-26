@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs'
 import { PartnersConnectionComponent } from '@features/connection/partners-connection/partners-connection.component'
 import { StepComponent } from '@features/steps/step.component'
 import { MoveService } from '@features/moves/move.service'
+import { AuthService } from '@core/auth/auth.service'
 import { DanceMove } from '@features/moves/dance-move.type'
 import { Step } from '@features/steps/step.type'
 
@@ -18,8 +19,12 @@ import { Step } from '@features/steps/step.type'
       @let move = move$ | async;
       @if (move) {
         <h1>{{ move.name }}</h1>
-        <a routerLink="/moves/{{ move.id }}/edit" class="edit-link">🖋</a>
-        <button (click)="onAskDelete()" class="delete-btn">🗑</button>
+
+        @let isAdmin = isAdmin$ | async;
+        @if (isAdmin) {
+          <a routerLink="/moves/{{ move.id }}/edit" class="edit-link">🖋</a>
+          <button (click)="onAskDelete()" class="delete-btn">🗑</button>
+        }
 
         <ul class="tags">
           @for (tag of move.tags; track tag) {
@@ -86,12 +91,14 @@ import { Step } from '@features/steps/step.type'
 })
 export class MoveDetailComponent implements OnInit {
   private moveService = inject(MoveService)
+  private authService = inject(AuthService)
   private router = inject(Router)
 
   @Input() id!: string
 
   protected move$: Observable<DanceMove | null> = of(null)
   protected showDeleteConfirm = false
+  protected isAdmin$ = this.authService.isAdmin$
 
   ngOnInit() {
     this.move$ = this.moveService.getMoveById(this.id)

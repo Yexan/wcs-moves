@@ -24,7 +24,7 @@ import { MoveService } from './move.service'
 
 .container
   position: relative
-  +mixin.wrapper(mixin.pxInRem(960))
+  +mixin.wrapper
   padding: 1rem
 
 .search-input

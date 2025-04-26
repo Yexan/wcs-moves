@@ -1,4 +1,9 @@
 @use 'sass:color'
+@use 'variables' as var
+
+
+@function pxInRem($pxValue: 16)
+  @return calc(#{ $pxValue }rem / 16)
 
 /**
  ** Mixins for positions
@@ -48,7 +53,7 @@
  ** Mixins for sizes
  ** ----------------**/
 
-=wrapper($wrapper-size: 1080px, $vertical-margin: 0)
+=wrapper($wrapper-size: pxInRem(960), $vertical-margin: 0)
   width: 100%
   max-width: $wrapper-size
   margin: $vertical-margin auto
@@ -79,9 +84,6 @@
 .debug-overflow
   +debug-overflow
 
-
-@function pxInRem($pxValue: 16)
-  @return calc(#{ $pxValue }rem / 16)
 
 /**
  ** Mixins for colors
@@ -114,6 +116,24 @@
 
 @function darker-color($color, $amount: 15%)
   @return color.scale($color, $lightness: -$amount)
+
+
+
+=wcs-section($heading-tag: 'h1', $font-size: 1.4rem, $padding: 1rem)
+  position: relative
+  +wrapper
+  padding: 1rem
+  color: var.$gray-light
+  background-color: var.$gray-dark
+  border-radius: .4rem
+  overflow: hidden
+
+  #{$heading-tag}
+    margin: -1rem -1rem 0
+    padding: #{$padding}
+    font-size: #{$font-size}
+    color: var.$white
+    background-color: var.$gray-medium
 
 
 

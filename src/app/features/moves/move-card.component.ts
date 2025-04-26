@@ -25,19 +25,7 @@ import type { DanceMove } from '@features/moves/dance-move.type'
 @use 'variables' as var
 
 .move-card
-  position: relative
-  margin-bottom: 1rem
-  padding: 1rem
-  background-color: var.$gray-dark
-  border-radius: .4rem
-  overflow: hidden
-
-h2
-  margin: -1rem -1rem 0
-  padding: 0.7rem 1rem
-  font-size: 1rem
-  color: var.$white
-  background-color: var.$gray-medium
+  +mixin.wcs-section('h2', 1rem, .7rem 1rem)
 
 .tags
   display: flex

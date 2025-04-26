@@ -6,22 +6,11 @@
   display: block
   padding: 1rem
 
-.move-details,
-.move-details-edit
-  position: relative
-  +mixin.wrapper(mixin.pxInRem(960))
-  padding: 1rem
-  color: var.$gray-light
-  background-color: var.$gray-dark
-  border-radius: .4rem
-  overflow: hidden
+.move-details
+  +mixin.wcs-section
 
-h1
-  margin: -1rem -1rem 0
-  padding: 1rem 5rem 1rem 1rem
-  font-size: 1.4rem
-  color: var.$white
-  background-color: var.$gray-medium
+.move-details-edit
+  +mixin.wcs-section($padding: 1rem 5rem 1rem 1rem)
 
 .edit-link,
 .delete-btn

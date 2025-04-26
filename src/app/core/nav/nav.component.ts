@@ -1,19 +1,25 @@
-import { Component } from "@angular/core"
+import { Component, inject } from "@angular/core"
 import { RouterModule } from "@angular/router"
+import { AsyncPipe } from "@angular/common"
+
+import { AuthService } from "@core/auth/auth.service"
 
 @Component({
   standalone: true,
   selector: 'app-nav',
-  imports: [RouterModule],
+  imports: [AsyncPipe, RouterModule],
   template: `
     <nav class="nav">
       <ul>
         <li>
           <a routerLink="/moves" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Moves</a>
         </li>
-        <li>
-          <a routerLink="/moves/new" routerLinkActive="active">Add a move</a>
-        </li>
+        @let isAdmin = isAdmin$ | async;
+        @if (isAdmin) {
+          <li>
+            <a routerLink="/moves/new" routerLinkActive="active">Add a move</a>
+          </li>
+        }
         <li>
           <a routerLink="/login" routerLinkActive="active">Login</a>
         </li>
@@ -34,7 +40,7 @@ import { RouterModule } from "@angular/router"
 ul
   +mixin.flex-row-left
   flex-wrap: wrap
-  +mixin.wrapper(mixin.pxInRem(960))
+  +mixin.wrapper
   padding: 0
   list-style: none
 
@@ -55,4 +61,7 @@ a
     border-bottom: 2px solid var.$highlight
   `
 })
-export class AppNavComponent { }
+export class AppNavComponent {
+  private authService = inject(AuthService)
+  protected isAdmin$ = this.authService.isAdmin$
+}
