@@ -10,11 +10,11 @@ _Note_: For now it's still a work in progress in a POC state.
 
 - ~~add deploy on Vercel~~
 - ~~add subdomainon my website for a demo URL~~ [Demo Here](https://wcs.adrienmartinet.com/)
-- route and component to add a move
-- link the web app to firebase to use :
-  - Firestorage
-  - Firebase Auth
-- handle the env tokens and deploy scripts for Vercel
+- ~~route and component to add a move~~
+- l~~ink the web app to firebase to use :~~
+  - ~~Firestorage~~
+  - ~~Firebase Auth~~
+- ~~handle the env tokens and deploy scripts for Vercel~~
 - Publish some real moves with meaningful details
 
 ## Mid term Roadmap
@@ -29,6 +29,21 @@ _Note_: For now it's still a work in progress in a POC state.
 - flow recommendation after a move depending on the ending connection
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+
+## 🔑 Configure Firebase for Firestore and Auth
+
+Before to lauch the project you need:
+
+- Head to [Firebase console](https://console.firebase.google.com/)
+- Create a project and add:
+  - Authentication with Google Auth Provider
+  - a Firestore Database (I named mine `wcs-moves`) and 2 collections:
+    - `danceMoves` refer to DanceMove type
+    - `users` : Document refers to the User `uid` and the fields looks like `{ isAdmin: false }`
+- Go to your project configuration
+- create a `.env` file at the root of your project (you have a `.env.example` file in the project) with the information from your project configuration
+
+It's currently hosted on Vercel on my side, you can easily add ENV variable corresponding to your .env file and you're good to go ✨
 
 ## Development server
 
