@@ -11,6 +11,7 @@ export class MoveService {
 
   moves$ = collectionData(this.danceMoves, { idField: 'id' }).pipe(
     map((moves) => moves as DanceMove[]),
+    map((moves) => moves.sort((a, b) => a.name.localeCompare(b.name))),
     shareReplay(1)
   )
 

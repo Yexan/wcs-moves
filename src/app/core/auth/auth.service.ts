@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   private async getOrCreateUser(uid: string): Promise<{ isAdmin: boolean }> {
-    console.log('getOrCreateUser', uid)
     if (!uid) return { isAdmin: false }
 
     const userRef = doc(this.firestore, `users/${uid}`)

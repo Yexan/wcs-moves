@@ -7,10 +7,10 @@
   padding: 1rem
 
 .move-details
-  +mixin.wcs-section
+  +mixin.wcs-section($padding: 1rem 8rem 1rem 1rem)
 
 .move-details-edit
-  +mixin.wcs-section($padding: 1rem 5rem 1rem 1rem)
+  +mixin.wcs-section
 
 .edit-link,
 .delete-btn
@@ -62,7 +62,6 @@ hr
 .step-details
   display: grid
   grid-template-rows: 1fr
-  grid-auto-rows: 1fr
   gap: 1rem
   margin-top: 2rem
 
@@ -71,6 +70,7 @@ hr
   display: grid
   grid-template-columns: min(5vw, 5rem) 1fr
   gap: 2rem
+  min-height: 8rem
   background-color: rgba(var.$gray-medium, .3)
 
   &:nth-child(even)

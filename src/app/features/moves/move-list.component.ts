@@ -1,18 +1,26 @@
-import { Component, inject } from '@angular/core'
+import { Component, computed, inject, signal } from '@angular/core'
 import { AsyncPipe } from '@angular/common'
-import { FormsModule } from '@angular/forms'
 
 import { MoveCardComponent } from '@features/moves/move-card.component'
 import { MoveService } from './move.service'
+import { BehaviorSubject, combineLatest, debounceTime, map } from 'rxjs'
 
 @Component({
   standalone: true,
   selector: 'app-move-list',
-  imports: [FormsModule, MoveCardComponent, AsyncPipe],
+  imports: [MoveCardComponent, AsyncPipe],
   template: `
     <div class="container">
+
+      <input
+        #searchQueryInput
+        type="text"
+        class="search-input"
+        (input)="onSearchUpdated(searchQueryInput.value)"
+      />
+
       <ul class="move-list">
-        @for (move of (moves$ | async); track move.id) {
+        @for (move of (filteredMoves$ | async); track move.id) {
           <app-move-card [move]="move" />
         }
       </ul>
@@ -50,5 +58,32 @@ import { MoveService } from './move.service'
   `,
 })
 export class MoveListComponent {
-  protected moves$ = inject(MoveService).moves$
+  private moves$ = inject(MoveService).moves$
+  private searchQuery$ = new BehaviorSubject('')
+
+  protected filteredMoves$ = combineLatest([
+    this.moves$,
+    this.searchQuery$.pipe(
+      debounceTime(250)
+    )
+  ]).pipe(
+    map(([moves, search]) => {
+      const trimmedSearch = search.trim().toLowerCase()
+
+      if (!trimmedSearch) return moves
+
+      return moves.filter(move => {
+        const inName = move.name.toLowerCase().includes(trimmedSearch)
+        const inDescription = move.description?.toLowerCase().includes(trimmedSearch) ?? false
+        const inTags = move.tags?.some(tag => tag.toLowerCase().includes(trimmedSearch)) ?? false
+        const inFlow = move.flow?.toLowerCase().includes(trimmedSearch) ?? false
+
+        return inName || inDescription || inTags || inFlow
+      })
+    })
+  )
+
+  onSearchUpdated(sq: string) {
+    this.searchQuery$.next(sq)
+  }
 }
