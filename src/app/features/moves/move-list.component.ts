@@ -72,13 +72,17 @@ export class MoveListComponent {
 
       if (!trimmedSearch) return moves
 
-      return moves.filter(move => {
-        const inName = move.name.toLowerCase().includes(trimmedSearch)
-        const inDescription = move.description?.toLowerCase().includes(trimmedSearch) ?? false
-        const inTags = move.tags?.some(tag => tag.toLowerCase().includes(trimmedSearch)) ?? false
-        const inFlow = move.flow?.toLowerCase().includes(trimmedSearch) ?? false
+      const searchWords = trimmedSearch.split(/\s+/)
 
-        return inName || inDescription || inTags || inFlow
+      return moves.filter(move => {
+        const searchableFields = [
+          move.name,
+          move.description ?? '',
+          move.flow ?? '',
+          ...(move.tags ?? [])
+        ].join(' ').toLowerCase()
+
+        return searchWords.every(word => searchableFields.includes(word))
       })
     })
   )
