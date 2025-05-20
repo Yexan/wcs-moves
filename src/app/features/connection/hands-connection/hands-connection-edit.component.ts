@@ -21,7 +21,6 @@ import { HandsConnectionFormGroup } from './hands-connection.type'
         @let left = getConnectionPoint(handsConnection, 'left');
         @if (left) {
           <app-connection-point-edit
-            side="Left"
             [connectionPoint]="left"
             [color]="color"
             [textDirection]="textDirection" />
@@ -30,7 +29,6 @@ import { HandsConnectionFormGroup } from './hands-connection.type'
         @let right = getConnectionPoint(handsConnection, 'right');
         @if (right) {
           <app-connection-point-edit
-            side="Right"
             [connectionPoint]="right"
             [color]="color"
             [textDirection]="textDirection" />

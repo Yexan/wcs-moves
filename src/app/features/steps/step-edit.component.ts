@@ -20,11 +20,11 @@ import { StepFormGroup } from '@features/steps/step.type'
       <div class="step-edit" [formGroup]="step">
         <div class="foot-positions" formGroupName="footPositions">
           <div class="foot-position">
-            <h3>Follower steps</h3>
+            <h3>Follower</h3>
             <textarea formControlName="follower"></textarea>
           </div>
           <div class="foot-position">
-            <h3>Leader steps</h3>
+            <h3>Leader</h3>
             <textarea formControlName="leader"></textarea>
           </div>
         </div>
@@ -36,11 +36,11 @@ import { StepFormGroup } from '@features/steps/step.type'
         }
       </div>
       <div class="step-edit">
-        <button type="button" class="remove-step" (click)="removeStep()">Remove step</button>
+        <button type="button" class="remove-step" (click)="removeStep()">Supprimer le pas</button>
       </div>
     } @else {
       <div class="step-edit">
-        <p>No step selected</p>
+        <p>Aucun pas sélectionné</p>
       </div>
     }
   `,

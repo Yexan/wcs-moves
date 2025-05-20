@@ -17,11 +17,11 @@ import { AuthService } from "@core/auth/auth.service"
         @let isAdmin = isAdmin$ | async;
         @if (isAdmin) {
           <li>
-            <a routerLink="/moves/new" routerLinkActive="active">Add a move</a>
+            <a routerLink="/moves/new" routerLinkActive="active">Ajouter un move</a>
           </li>
         }
         <li>
-          <a routerLink="/login" routerLinkActive="active">Login</a>
+          <a routerLink="/login" routerLinkActive="active">Connexion</a>
         </li>
       </ul>
     </nav>

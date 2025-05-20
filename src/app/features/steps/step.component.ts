@@ -11,11 +11,11 @@ import { Step } from '@features/steps/step.type'
     <div class="step">
       <div class="foot-positions">
         <div class="foot-position">
-          <h3>Follower steps</h3>
+          <h3>Follower</h3>
           <p>{{ step.footPositions.follower }}</p>
         </div>
         <div class="foot-position">
-          <h3>Leader steps</h3>
+          <h3>Leader</h3>
           <p>{{ step.footPositions.leader }}</p>
         </div>
       </div>

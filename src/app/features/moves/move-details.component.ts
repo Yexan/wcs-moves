@@ -42,21 +42,21 @@ import { Step } from '@features/steps/step.type'
           <hr>
         }
 
-        <h2>Connection</h2>
+        <h2>Connexion</h2>
         <div class="connections">
           <div class="connection">
-            <h3>Starting Connection</h3>
+            <h3>Connexion de départ</h3>
             <app-partners-connection [partnersConnection]="move.startingConnection" />
           </div>
           <div class="connection">
-            <h3>Ending Connection</h3>
+            <h3>Connexion de fin</h3>
             <app-partners-connection [partnersConnection]="move.endingConnection" />
           </div>
         </div>
         <hr>
 
-        <h2>Steps details</h2>
-        <p>Steps amount: {{ move.steps }}</p>
+        <h2>Détails des pas</h2>
+        <p>Nombre de temps : {{ move.steps }}</p>
         <div class="step-details">
           @for (step of getStepDetailsArray(move.steps); track step) {
             <div class="step-detail">
@@ -72,16 +72,16 @@ import { Step } from '@features/steps/step.type'
         @if (showDeleteConfirm) {
           <div class="modal-backdrop" (click)="onCancelDelete()">
             <div class="modal" (click)="stopPropagation($event)">
-              <p>Are you sure you want to delete this move?</p>
+              <p>Est-tu sûr de vouloir supprimer ce mouvement ?</p>
               <div class="actions">
-                <button (click)="onCancelDelete()">Cancel</button>
-                <button class="danger" (click)="onConfirmDelete()">Yes, delete</button>
+                <button (click)="onCancelDelete()">Annuler</button>
+                <button class="danger" (click)="onConfirmDelete()">Oui, supprimer</button>
               </div>
             </div>
           </div>
         }
       } @else {
-        <p>Move not found.</p>
+        <p>Mouvement non trouvé.</p>
       }
     </section>
   `,

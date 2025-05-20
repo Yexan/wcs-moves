@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 
-import { ConnectionPoint, connectionPoints } from './connection-point.type'
+import { ConnectionPoint, connectionPoints, getConnectionPointDisplayName } from './connection-point.type'
 
 @Component({
   selector: 'app-connection-point-edit',
@@ -9,12 +9,12 @@ import { ConnectionPoint, connectionPoints } from './connection-point.type'
   imports: [ReactiveFormsModule],
   template: `
     <div class="connection-point" [class.direction-reverse]="textDirection === 'top'">
-      <div [style.background]="color" class="connection-origin">{{ side }}</div>
+      <div [style.background]="color" class="connection-origin"></div>
       <div class="connection-direction-spacer"></div>
       <div class="connection-direction">
         <select [formControl]="connectionPoint">
           @for (point of connectionPoints; track point) {
-            <option [value]="point">{{ point }}</option>
+            <option [value]="point">{{ getDisplayName(point) }}</option>
           }
         </select>
       </div>
@@ -25,10 +25,10 @@ import { ConnectionPoint, connectionPoints } from './connection-point.type'
   `
 })
 export class ConnectionPointEditComponent {
-  @Input({ required: true }) side!: string
   @Input({ required: true }) connectionPoint!: FormControl<ConnectionPoint>
   @Input({ required: false }) textDirection = 'top'
   @Input({ required: false }) color = '#ccc'
 
   connectionPoints = connectionPoints
+  getDisplayName = getConnectionPointDisplayName
 }
