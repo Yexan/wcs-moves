@@ -11,7 +11,7 @@ import type { DanceMove } from '@features/moves/dance-move.type'
     <li class="move-card">
       <a [routerLink]="['/moves', move.id]">
         <h2>{{ move.name }}</h2>
-        <p>{{ move.description }}</p>
+        <p class="description">{{ move.description }}</p>
         <ul class="tags">
           @for (tag of move.tags; track tag) {
             <li class="tag">{{ tag }}</li>
@@ -46,6 +46,15 @@ a
   +mixin.w-h(100%)
   color: var.$gray-light
   text-decoration: none
+
+.description
+  display: -webkit-box
+  -webkit-line-clamp: 4
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+  max-height: calc(1.2em * 4)
+  line-height: 1.2em
   `,
 })
 export class MoveCardComponent {

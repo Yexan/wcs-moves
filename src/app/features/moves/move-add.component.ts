@@ -19,12 +19,12 @@ import { StepFormGroup } from '@features/steps/step.type'
   imports: [AsyncPipe, ReactiveFormsModule, PartnersConnectionEditComponent, StepEditComponent],
   template: `
     <section class="move-details-edit">
-      <h1>Add a new Dance Move</h1>
+      <h1>Ajouter un move</h1>
 
       @if (form) {
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
           <label>
-            <span>Name</span>
+            <span>Nom</span>
             <input formControlName="name" />
           </label>
 
@@ -40,21 +40,21 @@ import { StepFormGroup } from '@features/steps/step.type'
             @let startGroup = getConnectionGroup(form, 'startingConnection');
             @if (startGroup) {
               <div class="connection">
-                <h3>Starting Connection</h3>
+                <h3>Connection de départ</h3>
                 <app-partners-connection-edit [partnersConnection]="startGroup" />
               </div>
             }
             @let endGroup = getConnectionGroup(form, 'endingConnection');
             @if (endGroup) {
               <div class="connection">
-                <h3>Ending Connection</h3>
+                <h3>Connection de fin</h3>
                 <app-partners-connection-edit [partnersConnection]="endGroup" />
               </div>
             }
           </div>
 
           <label>
-            <span>Steps amount:</span>
+            <span>Nombre de temps:</span>
             <input
               type="number"
               min="1"
@@ -62,7 +62,7 @@ import { StepFormGroup } from '@features/steps/step.type'
             />
           </label>
 
-          <h2>Steps details</h2>
+          <h2>Détails des pas</h2>
           <div class="step-details">
             @let timingSteps = timingSteps$ | async;
             @for (timing of timingSteps; track timing) {
@@ -73,7 +73,7 @@ import { StepFormGroup } from '@features/steps/step.type'
                   <app-step-edit [step]="stepDetail" (onRemoveStep)="removeStep(form, stepDetail)" />
                 } @else {
                   <button class="add-step" type="button" (click)="addStep(form, timing)">
-                    ➕ Add a step here
+                    ➕ Ajouter un pas ici
                   </button>
                 }
               </div>
@@ -81,13 +81,13 @@ import { StepFormGroup } from '@features/steps/step.type'
           </div>
 
           <label class="checkbox">
-            <span>Follower Initiative</span>
+            <span>Initiative du follower</span>
             <input type="checkbox" formControlName="isFollowerInitiative" />
           </label>
 
           <div class="form-actions">
-            <button type="button" (click)="goBack()">❌ Cancel</button>
-            <button type="submit" [disabled]="form.invalid">💾 Save</button>
+            <button type="button" (click)="goBack()">❌ Annuler</button>
+            <button type="submit" [disabled]="form.invalid">💾 Enregistrer</button>
           </div>
         </form>
       }
