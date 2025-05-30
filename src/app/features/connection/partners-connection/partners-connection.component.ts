@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { CommonModule } from '@angular/common'
+
 
 import { HandsConnectionComponent } from '@features/connection/hands-connection/hands-connection.component'
 import { PartnersConnection } from './partners-connection.type'
@@ -8,7 +8,7 @@ import { PartnersConnection } from './partners-connection.type'
 @Component({
   selector: 'app-partners-connection',
   standalone: true,
-  imports: [CommonModule, HandsConnectionComponent],
+  imports: [HandsConnectionComponent],
   template: `
     <div class="partners-connection">
       <app-hands-connection dancerRole="Follower" [handsConnection]="partnersConnection.follower" color="#FFD54F" textDirection="bottom" handsDirection="right-to-left" />
