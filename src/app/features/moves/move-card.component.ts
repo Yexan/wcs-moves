@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core'
 import { RouterLink } from '@angular/router'
 
 import type { DanceMove } from '@features/moves/dance-move.type'
+import { getDanceMoveLevelDisplayName } from '@features/moves/dance-moves-level'
 
 @Component({
   standalone: true,
@@ -13,6 +14,12 @@ import type { DanceMove } from '@features/moves/dance-move.type'
         <h2>{{ move.name }}</h2>
         <p class="description">{{ move.description }}</p>
         <ul class="tags">
+          @if (move.level) {
+            <li class="tag">{{ getDanceMoveLevelDisplayName(move.level) }}</li>
+          }
+          @if (move.steps) {
+            <li class="tag">{{ move.steps }} temps</li>
+          }
           @for (tag of move.tags; track tag) {
             <li class="tag">{{ tag }}</li>
           }
@@ -59,4 +66,6 @@ a
 })
 export class MoveCardComponent {
   @Input({ required: true }) move!: DanceMove
+
+  getDanceMoveLevelDisplayName = getDanceMoveLevelDisplayName
 }

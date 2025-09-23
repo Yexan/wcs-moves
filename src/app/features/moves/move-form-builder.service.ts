@@ -18,6 +18,7 @@ export class MoveFormBuilderService {
     return this.formBuilder.group({
       name: new FormControl(move.name, { nonNullable: true, validators: [Validators.required] }),
       description: new FormControl(move.description, { nonNullable: true }),
+      level: new FormControl(move.level, { nonNullable: true }),
       flow: new FormControl(move.flow, { nonNullable: true }),
       tags: new FormControl(move.tags, { nonNullable: true }),
       variations: new FormControl(move.variations, { nonNullable: true }),
@@ -29,7 +30,6 @@ export class MoveFormBuilderService {
       thumbnailUrl: new FormControl(move.thumbnailUrl ?? null),
       startingConnection: this.createPartnersConnectionForm(move.startingConnection),
       endingConnection: this.createPartnersConnectionForm(move.endingConnection),
-      stepDetails: this.formBuilder.array(move.stepDetails.map(step => this.createStepForm(step)))
     }) as DanceMoveFormGroup
   }
 
@@ -82,6 +82,7 @@ export class MoveFormBuilderService {
   createEmptyDanceMove(): DanceMove {
     return {
       name: '',
+      level: 'beginner',
       description: '',
       flow: '',
       tags: [],
@@ -93,8 +94,7 @@ export class MoveFormBuilderService {
       videoUrl: '',
       thumbnailUrl: '',
       startingConnection: this.createEmptyPartnersConnection(),
-      endingConnection: this.createEmptyPartnersConnection(),
-      stepDetails: [this.createEmptyStep(1)]
+      endingConnection: this.createEmptyPartnersConnection()
     }
   }
 

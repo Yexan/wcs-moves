@@ -1,9 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { AsyncPipe } from '@angular/common'
 
 import { MoveCardComponent } from '@features/moves/move-card.component'
 import { MoveService } from './move.service'
-import { BehaviorSubject, combineLatest, debounceTime, map } from 'rxjs'
+import { BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, map } from 'rxjs'
+import { getDanceMoveLevelDisplayName } from './dance-moves-level'
 
 @Component({
   standalone: true,
@@ -64,7 +65,8 @@ export class MoveListComponent {
   protected filteredMoves$ = combineLatest([
     this.moves$,
     this.searchQuery$.pipe(
-      debounceTime(250)
+      debounceTime(250),
+      distinctUntilChanged()
     )
   ]).pipe(
     map(([moves, search]) => {
@@ -78,6 +80,8 @@ export class MoveListComponent {
         const searchableFields = [
           move.name,
           move.description ?? '',
+          move.level ? getDanceMoveLevelDisplayName(move.level) : '',
+          move.steps ?? '',
           move.flow ?? '',
           ...(move.tags ?? [])
         ].join(' ').toLowerCase()

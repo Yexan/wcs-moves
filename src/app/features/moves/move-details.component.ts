@@ -4,16 +4,16 @@ import { Router, RouterLink } from '@angular/router'
 import { Observable, of } from 'rxjs'
 
 import { PartnersConnectionComponent } from '@features/connection/partners-connection/partners-connection.component'
-import { StepComponent } from '@features/steps/step.component'
 import { MoveService } from '@features/moves/move.service'
 import { AuthService } from '@core/auth/auth.service'
 import { DanceMove } from '@features/moves/dance-move.type'
-import { Step } from '@features/steps/step.type'
+import { getDanceMoveLevelDisplayName } from '@features/moves/dance-moves-level'
+import { VideoPlayerComponent } from '@features/video/video-player.component'
 
 @Component({
   standalone: true,
   selector: 'app-move-detail',
-  imports: [AsyncPipe, RouterLink, PartnersConnectionComponent, StepComponent],
+  imports: [AsyncPipe, RouterLink, PartnersConnectionComponent, VideoPlayerComponent],
   template: `
     <section class="move-details">
       @let move = move$ | async;
@@ -27,6 +27,12 @@ import { Step } from '@features/steps/step.type'
         }
 
         <ul class="tags">
+        @if (move.level) {
+            <li class="tag">{{ getDanceMoveLevelDisplayName(move.level) }}</li>
+          }
+          @if (move.steps) {
+            <li class="tag">{{ move.steps }} temps</li>
+          }
           @for (tag of move.tags; track tag) {
             <li class="tag">{{ tag }}</li>
           }
@@ -42,6 +48,12 @@ import { Step } from '@features/steps/step.type'
           <hr>
         }
 
+        @if (move.videoUrl) {
+          <h2>Vidéo</h2>
+          <app-video-player [videoId]="move.videoUrl" [title]="move.name" />
+          <hr>
+        }
+
         <h2>Connexion</h2>
         <div class="connections">
           <div class="connection">
@@ -54,20 +66,6 @@ import { Step } from '@features/steps/step.type'
           </div>
         </div>
         <hr>
-
-        <h2>Détails des pas</h2>
-        <p>Nombre de temps : {{ move.steps }}</p>
-        <div class="step-details">
-          @for (step of getStepDetailsArray(move.steps); track step) {
-            <div class="step-detail">
-              <span class="step-number">{{ getStepDetailName(step) }}</span>
-              @let stepDetail = getCorrespondingStepDetail(step, move.stepDetails);
-              @if (!!stepDetail) {
-                <app-step [step]="stepDetail" />
-              }
-            </div>
-          }
-        </div>
 
         @if (showDeleteConfirm) {
           <div class="modal-backdrop" (click)="onCancelDelete()">
@@ -94,26 +92,17 @@ export class MoveDetailComponent implements OnInit {
   private authService = inject(AuthService)
   private router = inject(Router)
 
+  getDanceMoveLevelDisplayName = getDanceMoveLevelDisplayName
+
   @Input() id!: string
 
   protected move$: Observable<DanceMove | null> = of(null)
   protected showDeleteConfirm = false
   protected isAdmin$ = this.authService.isAdmin$
 
+
   ngOnInit() {
     this.move$ = this.moveService.getMoveById(this.id)
-  }
-
-  getStepDetailsArray(moveStepsAmount: number) {
-    return Array.from({ length: moveStepsAmount * 2 }).map((k, i) => i + 1)
-  }
-
-  getStepDetailName(stepNumber: number): string {
-    return (stepNumber % 2) ? `${(stepNumber + 1) / 2}` : '&'
-  }
-
-  getCorrespondingStepDetail(stepNumber: number, stepDetails: Step[] = []) {
-    return stepDetails.find((step) => step.timing === stepNumber)
   }
 
   onAskDelete() {

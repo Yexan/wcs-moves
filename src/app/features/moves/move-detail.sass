@@ -59,30 +59,6 @@ hr
   flex: 1
   text-align: center
 
-.step-details
-  display: grid
-  grid-template-rows: 1fr
-  gap: 1rem
-  margin-top: 2rem
-
-.step-detail,
-.step-detail-edit
-  display: grid
-  grid-template-columns: min(5vw, 5rem) 1fr
-  gap: 2rem
-  min-height: 8rem
-  background-color: rgba(var.$gray-medium, .3)
-
-  &:nth-child(even)
-    background-color: var.$gray-dark
-
-    .step-number
-      background-color: rgba(var.$gray-lightest, .1)
-
-.step-number
-  +mixin.flex-column-center
-  background-color: rgba(var.$gray-lighter, .1)
-
 
 .modal-backdrop
   position: fixed
@@ -123,3 +99,11 @@ hr
 
 p
   white-space-collapse: preserve-breaks
+
+select
+  padding: 0.25rem
+  font-size: 1rem
+  background-color: var.$gray-light
+  border-radius: 4px
+  border: 1px solid var.$gray-ccc
+

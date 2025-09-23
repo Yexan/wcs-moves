@@ -1,17 +1,29 @@
 import { Routes } from '@angular/router'
 
 import { AuthGuard } from '@core/auth/auth.guard'
-import { LoginComponent } from '@core/login/login.component'
-import { MoveListComponent } from '@features/moves/move-list.component'
-import { MoveDetailComponent } from '@features/moves/move-details.component'
-import { MoveEditComponent } from '@features/moves/move-edit.component'
-import { MoveAddComponent } from '@features/moves/move-add.component'
 
 export const routes: Routes = [
   { path: '', redirectTo: 'moves', pathMatch: 'full' },
-  { path: 'moves', component: MoveListComponent },
-  { path: 'moves/new', component: MoveAddComponent, canActivate: [AuthGuard] },
-  { path: 'moves/:id', component: MoveDetailComponent },
-  { path: 'moves/:id/edit', component: MoveEditComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'moves',
+    loadComponent: () => import('@features/moves/move-list.component').then(m => m.MoveListComponent)
+  },
+  {
+    path: 'moves/new',
+    loadComponent: () => import('@features/moves/move-add.component').then(m => m.MoveAddComponent),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'moves/:id',
+    loadComponent: () => import('@features/moves/move-details.component').then(m => m.MoveDetailComponent)
+  },
+  {
+    path: 'moves/:id/edit',
+    loadComponent: () => import('@features/moves/move-edit.component').then(m => m.MoveEditComponent),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('@core/login/login.component').then(m => m.LoginComponent)
+  },
 ]

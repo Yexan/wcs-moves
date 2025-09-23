@@ -1,22 +1,19 @@
-import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { AsyncPipe } from '@angular/common'
-import { FormArray, ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { Observable, map, of, shareReplay, startWith, switchMap } from 'rxjs'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { PartnersConnectionEditComponent } from '@features/connection/partners-connection/partners-connection-edit.component'
-import { StepEditComponent } from '@features/steps/step-edit.component'
 import { MoveService } from '@features/moves/move.service'
 import { MoveFormBuilderService } from '@features/moves/move-form-builder.service'
 import { DanceMove, DanceMoveFormGroup } from '@features/moves/dance-move.type'
-import { StepFormGroup } from '@features/steps/step.type'
+import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/dance-moves-level'
 
 
 @Component({
   selector: 'app-move-add',
   standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule, PartnersConnectionEditComponent, StepEditComponent],
+  imports: [ReactiveFormsModule, PartnersConnectionEditComponent],
   template: `
     <section class="move-details-edit">
       <h1>Ajouter un move</h1>
@@ -29,8 +26,35 @@ import { StepFormGroup } from '@features/steps/step.type'
           </label>
 
           <label>
+            <span>Niveau</span>
+            <select formControlName="level">
+              @for (level of danceMoveLevels; track level) {
+                <option [value]="level">{{ getDanceMoveLevelDisplayName(level) }}</option>
+              }
+            </select>
+          </label>
+
+          <label>
             <span>Description</span>
             <textarea formControlName="description"></textarea>
+          </label>
+
+          <hr>
+
+          <label>
+            <span>Nombre de temps:</span>
+            <input
+              type="number"
+              min="1"
+              formControlName="steps"
+            />
+          </label>
+
+          <hr>
+
+          <label>
+            <span>URL de la vidéo YouTube (ID)</span>
+            <input type="text" formControlName="videoUrl" />
           </label>
 
           <hr>
@@ -52,33 +76,7 @@ import { StepFormGroup } from '@features/steps/step.type'
               </div>
             }
           </div>
-
-          <label>
-            <span>Nombre de temps:</span>
-            <input
-              type="number"
-              min="1"
-              formControlName="steps"
-            />
-          </label>
-
-          <h2>Détails des pas</h2>
-          <div class="step-details">
-            @let timingSteps = timingSteps$ | async;
-            @for (timing of timingSteps; track timing) {
-              <div class="step-detail-edit">
-                <span class="step-number">{{ getStepDetailName(timing) }}</span>
-                @let stepDetail = getStepDetailFormByTiming(form, timing);
-                @if (stepDetail !== null) {
-                  <app-step-edit [step]="stepDetail" (onRemoveStep)="removeStep(form, stepDetail)" />
-                } @else {
-                  <button class="add-step" type="button" (click)="addStep(form, timing)">
-                    ➕ Ajouter un pas ici
-                  </button>
-                }
-              </div>
-            }
-          </div>
+          <hr>
 
           <label class="checkbox">
             <span>Initiative du follower</span>
@@ -158,61 +156,17 @@ input, textarea
   cursor: pointer
   `
 })
-export class MoveAddComponent implements OnInit {
+export class MoveAddComponent {
   private router = inject(Router)
-  private destroyRef = inject(DestroyRef)
   private moveService = inject(MoveService)
   private moveFormBuilder = inject(MoveFormBuilderService)
 
+  getDanceMoveLevelDisplayName = getDanceMoveLevelDisplayName
+  danceMoveLevels = danceMoveLevels
 
   protected form: DanceMoveFormGroup = this.moveFormBuilder.createEmptyDanceMoveForm()
-  protected timingSteps$: Observable<number[]> = of([])
 
   protected getConnectionGroup = this.moveFormBuilder.getConnectionGroup
-
-  ngOnInit(): void {
-    this.timingSteps$ = this.form.controls.steps.valueChanges.pipe(
-      startWith(this.form.controls.steps.value),
-      map((steps) => this.getTimingStepsArray(steps ?? 0)),
-      takeUntilDestroyed(this.destroyRef)
-    )
-  }
-
-  getStepFormArray(form: DanceMoveFormGroup) {
-    return form.get('stepDetails') as FormArray<StepFormGroup>
-  }
-
-  getTimingStepsArray(moveStepsAmount: number): number[] {
-    return Array.from({ length: moveStepsAmount * 2 }).map((_, i) => i + 1)
-  }
-
-  getStepDetailFormByTiming(form: DanceMoveFormGroup, timing: number) {
-    const stepDetails = this.getStepFormArray(form)
-    return stepDetails?.controls.find(ctrl => ctrl.value.timing === timing) ?? null
-  }
-
-  getStepDetailName(stepNumber: number): string {
-    return (stepNumber % 2) ? `${(stepNumber + 1) / 2}` : '&'
-  }
-
-  addStep(form: DanceMoveFormGroup, timing: number) {
-    const stepDetails = this.getStepFormArray(form)
-    const alreadyExists = stepDetails.controls.some(
-      ctrl => ctrl.get('timing')?.value === timing
-    )
-    if (alreadyExists) return
-
-    const newStepForm = this.moveFormBuilder.createEmptyStepForm(timing)
-    stepDetails.push(newStepForm)
-  }
-
-  removeStep(form: DanceMoveFormGroup, stepDetail: StepFormGroup) {
-    const stepDetails = this.getStepFormArray(form)
-    const index = stepDetails.controls.indexOf(stepDetail)
-    if (index !== -1) {
-      stepDetails.removeAt(index)
-    }
-  }
 
   onSubmit(form: DanceMoveFormGroup) {
     if (form.valid) {
