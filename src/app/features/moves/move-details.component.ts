@@ -18,7 +18,7 @@ import { VideoPlayerComponent } from '@features/video/video-player.component'
     <section class="move-details">
       @let move = move$ | async;
       @if (move) {
-        <h1>{{ move.name }}</h1>
+        <h1>{{ move.category }} - {{ move.name }}</h1>
 
         @let isAdmin = isAdmin$ | async;
         @if (isAdmin) {
@@ -41,12 +41,6 @@ import { VideoPlayerComponent } from '@features/video/video-player.component'
         <h2>Description</h2>
         <p>{{ move.description }}</p>
         <hr>
-
-        @if (move.flow) {
-          <h2>Flow</h2>
-          <p>{{ move.flow }}</p>
-          <hr>
-        }
 
         @if (move.videoUrl) {
           <h2>Vidéo</h2>

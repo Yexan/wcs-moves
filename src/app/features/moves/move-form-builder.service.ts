@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 
-import { DanceMove, DanceMoveFormGroup } from '@features/moves/dance-move.type'
+import { DanceMove, DanceMoveFormData, DanceMoveFormGroup } from '@features/moves/dance-move.type'
 import { Step, StepFormGroup } from '@features/steps/step.type'
 import { ConnectionPoint } from '@features/connection/connection-point/connection-point.type'
 import { HandsConnectionFormGroup } from '@features/connection/hands-connection/hands-connection.type'
@@ -14,20 +14,21 @@ export class MoveFormBuilderService {
 
   // Edit a move
 
-  createDanceMoveForm(move: DanceMove): DanceMoveFormGroup {
+  createDanceMoveForm(move: DanceMove | DanceMoveFormData): DanceMoveFormGroup {
     return this.formBuilder.group({
+      category: new FormControl(move.category, { nonNullable: true, validators: [Validators.required] }),
       name: new FormControl(move.name, { nonNullable: true, validators: [Validators.required] }),
       description: new FormControl(move.description, { nonNullable: true }),
-      level: new FormControl(move.level, { nonNullable: true }),
-      flow: new FormControl(move.flow, { nonNullable: true }),
+      level: new FormControl(move.level, { nonNullable: true, validators: [Validators.required] }),
       tags: new FormControl(move.tags, { nonNullable: true }),
       variations: new FormControl(move.variations, { nonNullable: true }),
       steps: new FormControl(move.steps, { nonNullable: true, validators: [Validators.required, Validators.min(1)] }),
       isFollowerInitiative: new FormControl(move.isFollowerInitiative, { nonNullable: true }),
-      createdAt: new FormControl(move.createdAt, { nonNullable: true }),
-      updatedAt: new FormControl(move.updatedAt, { nonNullable: true }),
       videoUrl: new FormControl(move.videoUrl ?? null),
-      thumbnailUrl: new FormControl(move.thumbnailUrl ?? null),
+      teacher: new FormControl(move.teacher, { nonNullable: true }),
+      location: new FormControl(move.location, { nonNullable: true }),
+      startingPosition: new FormControl(move.startingPosition, { nonNullable: true }),
+      endingPosition: new FormControl(move.endingPosition, { nonNullable: true }),
       startingConnection: this.createPartnersConnectionForm(move.startingConnection),
       endingConnection: this.createPartnersConnectionForm(move.endingConnection),
     }) as DanceMoveFormGroup
@@ -79,20 +80,21 @@ export class MoveFormBuilderService {
     return this.createStepForm(this.createEmptyStep(stepTiming))
   }
 
-  createEmptyDanceMove(): DanceMove {
+  createEmptyDanceMove(): DanceMoveFormData {
     return {
+      category: '',
       name: '',
       level: 'beginner',
       description: '',
-      flow: '',
       tags: [],
       variations: [],
       steps: 6,
       isFollowerInitiative: false,
-      createdAt: `${new Date()}`,
-      updatedAt: `${new Date()}`,
+      teacher: '',
+      location: '',
+      startingPosition: '',
+      endingPosition: '',
       videoUrl: '',
-      thumbnailUrl: '',
       startingConnection: this.createEmptyPartnersConnection(),
       endingConnection: this.createEmptyPartnersConnection()
     }

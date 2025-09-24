@@ -27,6 +27,12 @@ import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/d
         <p>🚫 Mouvement non trouvé.</p>
       } @else {
         <form [formGroup]="form!" (ngSubmit)="onSubmit(form)">
+
+          <label>
+            <span>Catégorie</span>
+            <input formControlName="category" />
+          </label>
+
           <label>
             <span>Nom</span>
             <input formControlName="name" />
@@ -40,6 +46,8 @@ import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/d
               }
             </select>
           </label>
+
+          <hr>
 
           <label>
             <span>Description</span>

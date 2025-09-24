@@ -11,7 +11,7 @@ import { getDanceMoveLevelDisplayName } from '@features/moves/dance-moves-level'
   template: `
     <li class="move-card">
       <a [routerLink]="['/moves', move.id]">
-        <h2>{{ move.name }}</h2>
+        <h2>{{ move.category }} - {{ move.name }}</h2>
         <p class="description">{{ move.description }}</p>
         <ul class="tags">
           @if (move.level) {

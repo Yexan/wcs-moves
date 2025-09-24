@@ -8,6 +8,7 @@ import { MoveService } from '@features/moves/move.service'
 import { MoveFormBuilderService } from '@features/moves/move-form-builder.service'
 import { DanceMove, DanceMoveFormGroup } from '@features/moves/dance-move.type'
 import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/dance-moves-level'
+import { fromSheets } from './moves.mock-2'
 
 
 @Component({
@@ -20,6 +21,12 @@ import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/d
 
       @if (form) {
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+
+          <label>
+            <span>Catégorie</span>
+            <input formControlName="category" />
+          </label>
+
           <label>
             <span>Nom</span>
             <input formControlName="name" />
@@ -33,6 +40,8 @@ import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/d
               }
             </select>
           </label>
+
+          <hr>
 
           <label>
             <span>Description</span>
@@ -172,6 +181,7 @@ export class MoveAddComponent {
     if (form.valid) {
       const updatedMove: Partial<DanceMove> = {
         ...form.getRawValue(),
+        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }
 
@@ -180,6 +190,17 @@ export class MoveAddComponent {
       this.goBack()
     }
   }
+
+  // addMockMoves() {
+  //   fromSheets.forEach(move => {
+  //     const updatedMove: Partial<DanceMove> = {
+  //       ...move,
+  //       createdAt: new Date().toISOString(),
+  //       updatedAt: new Date().toISOString(),
+  //     }
+  //     this.moveService.addMove(move)
+  //   })
+  // }
 
   goBack() {
     this.router.navigate(['/moves'])
