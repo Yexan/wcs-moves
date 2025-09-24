@@ -61,6 +61,25 @@ import { VideoPlayerComponent } from '@features/video/video-player.component'
         </div>
         <hr>
 
+        <h2>Temporaire : infos de Positions pour remplir connexions</h2>
+        @if (move.startingPosition) {
+          <h3>Position de départ</h3>
+          <p>{{ move.startingPosition }}</p>
+        }
+
+        @if (move.endingPosition) {
+          <h3>Position de fin</h3>
+          <p>{{ move.endingPosition }}</p>
+        }
+        <hr>
+
+        @if (move.teacher && move.location) {
+          <p class="teacher-location">
+            Passe apprise par <span>{{ move.teacher }}</span> lors de <span>{{ move.location }}</span>
+          </p>
+          <hr>
+        }
+
         @if (showDeleteConfirm) {
           <div class="modal-backdrop" (click)="onCancelDelete()">
             <div class="modal" (click)="stopPropagation($event)">

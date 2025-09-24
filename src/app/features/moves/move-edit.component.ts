@@ -68,6 +68,16 @@ import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/d
           <hr>
 
           <label>
+            <span>Professeur</span>
+            <input type="text" formControlName="teacher" />
+          </label>
+          <label>
+            <span>Lieu</span>
+            <input type="text" formControlName="location" />
+          </label>
+          <hr>
+
+          <label>
             <span>URL de la vidéo YouTube (ID)</span>
             <input type="text" formControlName="videoUrl" />
           </label>
@@ -91,6 +101,16 @@ import { getDanceMoveLevelDisplayName, danceMoveLevels } from '@features/moves/d
               </div>
             }
           </div>
+
+          <label>
+            <span>Position de départ</span>
+            <input type="text" formControlName="startingPosition" />
+          </label>
+          <label>
+            <span>Position de fin</span>
+            <input type="text" formControlName="endingPosition" />
+          </label>
+          <hr>
 
           <label class="checkbox">
             <span>Initiative de follower ?</span>
