@@ -12,7 +12,6 @@ import { getDanceMoveLevelDisplayName } from '@features/moves/dance-moves-level'
     <li class="move-card">
       <a [routerLink]="['/moves', move.id]">
         <h2>{{ move.category }} - {{ move.name }}</h2>
-        <p class="description">{{ move.description }}</p>
         <ul class="tags">
           @if (move.level) {
             <li class="tag">{{ getDanceMoveLevelDisplayName(move.level) }}</li>
@@ -33,6 +32,10 @@ import { getDanceMoveLevelDisplayName } from '@features/moves/dance-moves-level'
 
 .move-card
   +mixin.wcs-section('h2', 1rem, .7rem 1rem)
+  padding: .5rem
+
+  h2
+    margin: -0.5rem -0.5rem 0
 
 .tags
   display: flex
