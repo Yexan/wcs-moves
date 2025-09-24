@@ -82,6 +82,8 @@ export class MoveListComponent {
           move.description ?? '',
           move.level ? getDanceMoveLevelDisplayName(move.level) : '',
           move.steps ?? '',
+          move.teacher ?? '',
+          move.location ?? '',
           ...(move.tags ?? [])
         ].join(' ').toLowerCase()
 
